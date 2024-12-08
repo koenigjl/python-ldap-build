@@ -41,36 +41,36 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
-  build_x86:
-    name: Build x86 wheels
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-2022]
-    env:
-      VS_PLATFORM: Win32
-      OPENSSL_CONFIG: VC-WIN32
-    steps:
-      - uses: actions/checkout@v4
-      - uses: microsoft/setup-msbuild@v1.1
-        with:
-          msbuild-architecture: x86
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: amd64_x86
-      - uses: ilammy/setup-nasm@v1
-      - run: build_openssl.cmd
-        shell: cmd
-      - run: build_openldap.cmd
-        shell: cmd
-      - run: build_python-ldap.cmd
-        shell: cmd
-      - uses: pypa/cibuildwheel@v2.16.2
-        env:
-          CIBW_ARCHS_WINDOWS: x86
-      - uses: actions/upload-artifact@v3
-        with:
-          path: ./wheelhouse/*.whl
+  # build_x86:
+  #   name: Build x86 wheels
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [windows-2022]
+  #   env:
+  #     VS_PLATFORM: Win32
+  #     OPENSSL_CONFIG: VC-WIN32
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: microsoft/setup-msbuild@v1.1
+  #       with:
+  #         msbuild-architecture: x86
+  #     - uses: ilammy/msvc-dev-cmd@v1
+  #       with:
+  #         arch: amd64_x86
+  #     - uses: ilammy/setup-nasm@v1
+  #     - run: build_openssl.cmd
+  #       shell: cmd
+  #     - run: build_openldap.cmd
+  #       shell: cmd
+  #     - run: build_python-ldap.cmd
+  #       shell: cmd
+  #     - uses: pypa/cibuildwheel@v2.16.2
+  #       env:
+  #         CIBW_ARCHS_WINDOWS: x86
+  #     - uses: actions/upload-artifact@v3
+  #       with:
+  #         path: ./wheelhouse/*.whl
   # ARM64 wheel is broken
   # build_arm64:
   #  name: Build ARM64 wheels
